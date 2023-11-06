@@ -5,18 +5,24 @@ public class Lab {
     public static int cont = 0;
 
     public static String[][] transformarEnMatriz(String[] array) {
-        int filas = array.length;
-        int columnas = array[0].length();
+        try{
+            int filas = array.length;
+            int columnas = array[0].length();
 
-        String[][] matriz = new String[filas][columnas];
+            String[][] matriz = new String[filas][columnas];
 
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                matriz[i][j] = String.valueOf(array[i].charAt(j));
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < columnas; j++) {
+                    matriz[i][j] = String.valueOf(array[i].charAt(j));
+                }
             }
+
+            return matriz;
+        }catch (Exception e){
+            System.out.println("El vector no genera una matriz cuadrada");
+            return null;
         }
 
-        return matriz;
     }
 
     // Recorro y guardo en un string toda la secuencia de caracteres, tanto de columna como de filas
@@ -106,9 +112,12 @@ public class Lab {
     // Metodo base que recorre las filas y las columnas, aumentando el contador si encuentra una de las secuencias y retornando verdadero si el adn contiene mas de 1 secuencia
     public static boolean isMutant(String[] muestra) {
         String[][] adn = transformarEnMatriz(muestra);
-        recorrerFilasYColumnas(adn);
-        diagonalArribaIzquierdaAbajoDerecha(adn);
-        diagonalAbajoIzquierdaArribaDerecha(adn);
-        return cont > 1;
+        if(adn != null){
+            recorrerFilasYColumnas(adn);
+            diagonalArribaIzquierdaAbajoDerecha(adn);
+            diagonalAbajoIzquierdaArribaDerecha(adn);
+            return cont > 1;
+        }
+        return false;
     }
 }
